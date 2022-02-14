@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.tb-r {
+  border: 1px solid red;
+}
+
+.tb-b {
+  border: 1px solid blue;
+}
+
+.tb-g {
+  border: 1px solid green;
+}
+
+.tart_inner {
+  width: 100%;
+  padding: 0 10px;
+}
+
+@media screen and (min-width: 1200px) {
+  .tart_inner {
+    width: 1200px;
+    padding: 0;
+  }
+}
+
+.color_main_bg {
+  background-color: #ffa519;
+}
+
+.color_main_c {
+  color: #ffa519;
+}
+
+.color_main_border {
+  border-color: #ffa519;
+}
