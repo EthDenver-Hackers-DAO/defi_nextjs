@@ -4,6 +4,8 @@ import Footer from './footer';
 import Head from 'next/head';
 import { URL } from '../../utils/constants';
 // import { initWallet } from '../../utils/wallet';
+import Onboard from 'bnc-onboard';
+import Web3 from 'web3';
 
 import {
   connectWallet,
@@ -11,6 +13,12 @@ import {
   checkValidMegaMask
 } from '../../utils/wallet';
 import swal from 'sweetalert';
+import { web3 } from '../../utils/contract';
+
+const WALLETS = {
+  MetaMask: 'MetaMask',
+  Tally: 'Tally'
+};
 
 const Layout = ({ children, metaTags }) => {
   const [walletinfo, setWalletInfo] = React.useState({ address: '' });
@@ -46,9 +54,7 @@ const Layout = ({ children, metaTags }) => {
           ...headerLoading,
           wallet: true
         });
-        console.log(111);
         const { _, address } = await getCurrentWalletConnected();
-        console.log(222);
         setHeaderLoading({
           ...headerLoading,
           wallet: false
@@ -97,31 +103,28 @@ const Layout = ({ children, metaTags }) => {
   };
 
   const handleWallet = async () => {
-    if (!checkValidMegaMask()) return;
-
-    try {
-      setHeaderLoading({
-        ...headerLoading,
-        wallet: true
-      });
-      const { status, address } = await connectWallet();
-      setHeaderLoading({
-        ...headerLoading,
-        wallet: false
-      });
-      if (address.length > 0) {
-        swal('Good job!', 'wallet is connected successfully', 'success');
-        setWalletInfo({ ...walletinfo, address });
-      } else {
-        swal('Install Warning', status, 'warning');
-      }
-    } catch (error) {
-      swal('Error', error.message, 'error');
-      setHeaderLoading({
-        ...headerLoading,
-        wallet: false
-      });
-    }
+    const wallets = [
+      { walletName: 'metamask', preferred: true },
+      { walletName: 'tally', preferred: true }
+    ];
+    let web3;
+        const onboard = Onboard({
+          dappId: 'dc23170f-2a1e-4c44-811a-b0daa3438780', // [String] The API key created by step one above
+          networkId: 3, // Ropsten
+          subscriptions: {
+            wallet: (wallet) => {
+              // web3 = new Web3(wallet.provider);
+            }
+          },
+          walletSelect: {
+            wallets: wallets
+          }
+        });
+        await onboard.walletSelect();
+        console.log(111, 'window.ethereum', window.ethereum);
+        await onboard.walletCheck();
+        console.log(222, 'window.ethereum', window.ethereum);
+        break;
   };
 
   let meta = {
@@ -170,6 +173,7 @@ const Layout = ({ children, metaTags }) => {
         walletinfo={walletinfo}
         handleWallet={handleWallet}
         headerLoading={headerLoading}
+        WALLETS={WALLETS}
       />
       <main
         className="overflow-hidden flex flex-col justify-center items-center tb-r"

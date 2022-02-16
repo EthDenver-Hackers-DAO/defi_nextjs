@@ -3,8 +3,8 @@ export const isProduction = false;
 export const URL = {
   TART: `https://${isProduction ? 'www' : 'testnet'}.tart.cafe`,
   ALCHEMY: isProduction
-    ? 'polygon-mainnet.g.alchemy.com'
-    : 'polygon-mumbai.g.alchemy.com',
+    ? 'eth-ropsten.alchemyapi.io'
+    : 'eth-ropsten.alchemyapi.io',
   PINATA: {
     GATEWAY: 'https://tart.mypinata.cloud'
   }
