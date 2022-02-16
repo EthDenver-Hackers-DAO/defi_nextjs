@@ -4,15 +4,12 @@ import Image from 'next/image';
 import AKLoadingButton from '../AKLoadingButton';
 import { useRouter } from 'next/router';
 import { abbreviateWalletAddress } from '../../utils/wallet';
-import { Typography, Backdrop } from '@mui/material';
+import { Typography } from '@mui/material';
 import { AccountBalanceWalletOutlined } from '@mui/icons-material';
-
-import MetaMaskIcon from '../../public/assets/global-metamask.svg';
-import TallyIcon from '../../public/assets/global-tally.svg';
 
 const Header = ({ walletinfo, handleWallet, headerLoading }) => {
   const router = useRouter();
-  const isWalletConnected = walletinfo.address.length > 0;
+  const isWalletConnected = walletinfo.address?.length > 0;
 
   return (
     <header className="h-[80px] flex items-center w-full justify-center tb-r">
@@ -21,14 +18,14 @@ const Header = ({ walletinfo, handleWallet, headerLoading }) => {
           <Link href="/">
             <a>
               <div className="lg:w-[115px] md:w-[100px] w-[90px] bg-red-300">
-                [Project Logo]
+                Tarrus
               </div>
             </a>
           </Link>
         </div>
         <div className="flex justify-evenly items-center">
           <AKLoadingButton
-            className="sm:flex hidden"
+            className="flex"
             variant="text"
             loading={headerLoading.wallet}
             onClick={handleWallet}
@@ -42,7 +39,7 @@ const Header = ({ walletinfo, handleWallet, headerLoading }) => {
               }
             }}
           >
-            <AccountBalanceWalletOutlined fontSize="small" />
+            <AccountBalanceWalletOutlined />
             {isWalletConnected && (
               <Typography className="ml-2">
                 {abbreviateWalletAddress(walletinfo.address)}

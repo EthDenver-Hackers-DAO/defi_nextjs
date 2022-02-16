@@ -1,12 +1,9 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import TwitterLogo from '../../public/assets/home-twitter-logo.png';
 import MediumLogo from '../../public/assets/home-medium-logo.png';
 
-type Props = {
-  children?: ReactNode;
-};
-const Footer = ({ children }: Props) => {
+const Footer = ({ children }) => {
   return (
     <footer className="">
       <section className="w-full color_main_bg flex justify-center">
