@@ -46,9 +46,7 @@ const Layout = ({ children, metaTags }) => {
           ...headerLoading,
           wallet: true
         });
-        console.log(111);
         const { _, address } = await getCurrentWalletConnected();
-        console.log(222);
         setHeaderLoading({
           ...headerLoading,
           wallet: false
