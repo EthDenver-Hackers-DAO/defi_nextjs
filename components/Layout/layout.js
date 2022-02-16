@@ -149,7 +149,7 @@ const Layout = ({ children, metaTags }) => {
         headerLoading={headerLoading}
       />
       <main
-        className="overflow-hidden flex flex-col justify-center items-center tb-r"
+        className="overflow-hidden flex flex-col justify-center items-center"
         walletinfo={walletinfo}
       >
         {children}
