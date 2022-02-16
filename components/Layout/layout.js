@@ -13,12 +13,6 @@ import {
   checkValidMegaMask
 } from '../../utils/wallet';
 import swal from 'sweetalert';
-import { web3 } from '../../utils/contract';
-
-const WALLETS = {
-  MetaMask: 'MetaMask',
-  Tally: 'Tally'
-};
 
 const Layout = ({ children, metaTags }) => {
   const [walletinfo, setWalletInfo] = React.useState({ address: '' });
@@ -107,24 +101,23 @@ const Layout = ({ children, metaTags }) => {
       { walletName: 'metamask', preferred: true },
       { walletName: 'tally', preferred: true }
     ];
-    let web3;
-        const onboard = Onboard({
-          dappId: 'dc23170f-2a1e-4c44-811a-b0daa3438780', // [String] The API key created by step one above
-          networkId: 3, // Ropsten
-          subscriptions: {
-            wallet: (wallet) => {
-              // web3 = new Web3(wallet.provider);
-            }
-          },
-          walletSelect: {
-            wallets: wallets
-          }
-        });
-        await onboard.walletSelect();
-        console.log(111, 'window.ethereum', window.ethereum);
-        await onboard.walletCheck();
-        console.log(222, 'window.ethereum', window.ethereum);
-        break;
+    const onboard = Onboard({
+      dappId: 'dc23170f-2a1e-4c44-811a-b0daa3438780', // [String] The API key created by step one above
+      networkId: 3, // Ropsten
+      subscriptions: {
+        wallet: (wallet) => {
+          // web3 = new Web3(wallet.provider);
+        }
+      },
+      walletSelect: {
+        wallets: wallets
+      }
+    });
+    await onboard.walletSelect();
+    console.log(111, 'window.ethereum', window.ethereum);
+    const { status, address } = await connectWallet();
+
+    console.log(111, status, address);
   };
 
   let meta = {
@@ -173,7 +166,6 @@ const Layout = ({ children, metaTags }) => {
         walletinfo={walletinfo}
         handleWallet={handleWallet}
         headerLoading={headerLoading}
-        WALLETS={WALLETS}
       />
       <main
         className="overflow-hidden flex flex-col justify-center items-center tb-r"

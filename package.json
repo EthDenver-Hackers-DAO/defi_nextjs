@@ -26,8 +26,7 @@
     "react-dom": "17.0.2",
     "react-resize-detector": "^7.0.0",
     "sass": "^1.49.0",
-    "sweetalert": "^2.1.2",
-    "web3": "^1.7.0"
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "@types/node": "17.0.17",
