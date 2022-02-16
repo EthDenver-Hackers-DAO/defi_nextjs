@@ -30,6 +30,7 @@ const Footer = ({ children }) => {
                   className="w-[25px] h-[25px] ml-[10px] transition-all hover:scale-105 cursor-pointer flex justify-center items-center"
                   href="https://medium.com/@contact_38668"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <Image src={MediumLogo} alt="sms" />
                 </a>
