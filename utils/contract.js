@@ -3,8 +3,6 @@ let alchemyKey = isProduction
   ? process.env.NEXT_PUBLIC_PRODUCTION_ALCHEMY_KEY
   : process.env.NEXT_PUBLIC_DEVELOPMENT_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require('@alch/alchemy-web3');
-
-alchemyKey = 'qnmYbTUb6B99q1A-qf87Hm2YCYhSM72O';
 export const web3 = createAlchemyWeb3(`wss://${URL.ALCHEMY}/v2/${alchemyKey}`);
 
 const contractABI = require(`./contract-abi-${
