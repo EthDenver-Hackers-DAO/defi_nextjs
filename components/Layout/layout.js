@@ -2,28 +2,71 @@ import React from 'react';
 import Header from './header';
 import Footer from './footer';
 import Head from 'next/head';
-import { URL } from '../../utils/constants';
-// import { initWallet } from '../../utils/wallet';
+import { URL, NetworkIds } from '../../utils/constants';
+import { useSnackbar } from 'notistack';
+import { initOnboard } from '../../utils/wallet';
 
-import {
-  connectWallet,
-  getCurrentWalletConnected,
-  checkValidMegaMask
-} from '../../utils/wallet';
 import swal from 'sweetalert';
 
 const Layout = ({ children, metaTags }) => {
-  const [walletinfo, setWalletInfo] = React.useState({ address: '' });
+  const [walletinfo, setWalletInfo] = React.useState({
+    address: ''
+  });
   const [headerLoading, setHeaderLoading] = React.useState({
     wallet: false
   });
+  const { enqueueSnackbar } = useSnackbar();
+  const [onBoard, setOnBoard] = React.useState(null);
 
   React.useEffect(() => {
-    initWallet();
-    console.log(
-      'window.ethereum.selectedAddress',
-      window.ethereum?.selectedAddress
-    );
+    const onBoard = initOnboard({
+      address: (address) => {
+        if (address) {
+          enqueueSnackbar(`Successfully address is connected - ${address}`, {
+            variant: 'success'
+          });
+        } else {
+          localStorage.removeItem('selectedWallet');
+          enqueueSnackbar(`Wallet is disconnected`, {
+            variant: 'warning'
+          });
+        }
+
+        setWalletInfo({
+          ...walletinfo,
+          address: address ? address : ''
+        });
+      },
+      network: (network) => {
+        NetworkIds;
+        if (!network) return;
+        if (!NetworkIds[network]) return;
+        enqueueSnackbar(`Connected network is ${NetworkIds[network]}`, {
+          variant: 'info'
+        });
+      },
+      wallet: (wallet) => {
+        if (wallet.provider) {
+          const prevWallet = localStorage.getItem('selectedWallet');
+          if (!prevWallet) {
+            enqueueSnackbar(
+              `Successfully Wallet is connected to ${wallet.name}`,
+              {
+                variant: 'success'
+              }
+            );
+          }
+          if (prevWallet !== wallet.name) {
+            enqueueSnackbar(`Current wallet is changed to ${wallet.name}`, {
+              variant: 'warning'
+            });
+          }
+          localStorage.setItem('selectedWallet', wallet.name);
+        }
+      }
+    });
+
+    setOnBoard(onBoard);
 
     return () => {
       setHeaderLoading({
@@ -33,88 +76,24 @@ const Layout = ({ children, metaTags }) => {
     };
   }, []);
 
-  const initWallet = async () => {
-    //eslint-disable-next-line
-    try {
-      if (window.ethereum?.selectedAddress) {
-        setWalletInfo({
-          ...walletinfo,
-          address: window.ethereum?.selectedAddress
-        });
-      } else {
-        setHeaderLoading({
-          ...headerLoading,
-          wallet: true
-        });
-        const { _, address } = await getCurrentWalletConnected();
-        setHeaderLoading({
-          ...headerLoading,
-          wallet: false
-        });
-        if (address.length > 0) {
-          setWalletInfo({ ...walletinfo, address });
-        }
-      }
-      addWalletListener();
-    } catch (error) {
-      swal('Error', error.message, 'error');
-      setHeaderLoading({
-        ...headerLoading,
-        wallet: false
-      });
-      addWalletListener();
-    }
-  };
-
-  const addWalletListener = () => {
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          setWalletInfo({
-            ...walletinfo,
-            address: accounts[0]
-          });
-        } else {
-          setWalletInfo({
-            ...walletinfo,
-            address: ''
-          });
-        }
-        swal(
-          'Wallet Account is Changed',
-          'wallet address is changed now',
-          'success'
-        );
-      });
-    } else {
-      setWalletInfo({
-        ...walletinfo,
-        address: ''
-      });
-    }
-  };
-
   const handleWallet = async () => {
-    if (!checkValidMegaMask()) return;
+    setHeaderLoading({
+      ...headerLoading,
+      wallet: true
+    });
 
     try {
-      setHeaderLoading({
-        ...headerLoading,
-        wallet: true
-      });
-      const { status, address } = await connectWallet();
+      const walletSelect = await onBoard.walletSelect();
+      if (walletSelect) {
+        await onBoard.walletCheck();
+      }
+
       setHeaderLoading({
         ...headerLoading,
         wallet: false
       });
-      if (address.length > 0) {
-        swal('Good job!', 'wallet is connected successfully', 'success');
-        setWalletInfo({ ...walletinfo, address });
-      } else {
-        swal('Install Warning', status, 'warning');
-      }
     } catch (error) {
-      swal('Error', error.message, 'error');
+      swal('Wallet Error', error.message, 'error');
       setHeaderLoading({
         ...headerLoading,
         wallet: false
@@ -123,8 +102,8 @@ const Layout = ({ children, metaTags }) => {
   };
 
   let meta = {
-    title: 'TART',
-    description: 'Mint your first interactive NFT',
+    title: 'Taurus',
+    description: 'Leverage Your Balance with Taurus',
     image: `${URL.PINATA.GATEWAY}/ipfs/QmRNTi2v8UeTosAhbW7D4nKtVKsSCPP1szP2g2czQFZLfG`,
     url: 'https://tart.cafe',
     ...metaTags
@@ -173,7 +152,6 @@ const Layout = ({ children, metaTags }) => {
         className="overflow-hidden flex flex-col justify-center items-center tb-r"
         walletinfo={walletinfo}
       >
-        {/* {React.createElement(children, { walletinfo })} */}
         {children}
       </main>
       <Footer />
