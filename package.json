@@ -25,8 +25,8 @@
     "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-particles-js": "^3.6.0",
     "react-resize-detector": "^7.0.0",
+    "react-tsparticles": "^1.41.2",
     "sass": "^1.49.0",
     "sweetalert": "^2.1.2"
   },
