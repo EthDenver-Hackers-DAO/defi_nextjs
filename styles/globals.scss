@@ -5,6 +5,9 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
+p {
+  z-index: 1;
+}
 
 .tb-r {
   border: 1px solid red;
@@ -18,26 +21,42 @@ body {
   border: 1px solid green;
 }
 
-.tart_inner {
+.taurus_inner {
   width: 100%;
   padding: 0 10px;
 }
 
 @media screen and (min-width: 1200px) {
-  .tart_inner {
+  .taurus_inner {
     width: 1200px;
     padding: 0;
   }
 }
 
 .color_main_bg {
-  background-color: #ffa519;
+  background-color: #13293d;
 }
 
 .color_main_c {
-  color: #ffa519;
+  color: #13293d;
 }
 
 .color_main_border {
-  border-color: #ffa519;
+  border-color: #13293d;
+}
+
+.color_sub_c {
+  color: #247ba0;
+}
+
+.color_sub2_c {
+  color: #006494;
+}
+
+.color_sub2_bg {
+  background-color: #006494;
+}
+
+.color_gray {
+  color: #e8f1f2;
 }

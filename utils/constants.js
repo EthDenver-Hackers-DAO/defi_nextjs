@@ -1,7 +1,7 @@
 export const isProduction = false;
 
 export const URL = {
-  TART: `https://${isProduction ? 'www' : 'testnet'}.tart.cafe`,
+  TAURUS: `https://${isProduction ? 'www' : 'testnet'}.taurusfinance.xyz`,
   ALCHEMY: isProduction
     ? 'eth-ropsten.alchemyapi.io'
     : 'eth-ropsten.alchemyapi.io',

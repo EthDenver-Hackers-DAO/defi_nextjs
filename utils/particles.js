@@ -4,7 +4,7 @@ const PARTICLES = {
     autoPlay: true,
     background: {
       color: {
-        value: '#232741'
+        value: '#13293d'
       },
       // image:
       //   "url('http://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1237px-NASA_logo.svg.png')",
@@ -24,8 +24,8 @@ const PARTICLES = {
       enable: false
     },
     fullScreen: {
-      enable: false
-      // zIndex: 1
+      enable: true,
+      zIndex: 0
     },
     detectRetina: true,
     duration: 0,
@@ -515,7 +515,7 @@ const PARTICLES = {
     autoPlay: true,
     background: {
       color: {
-        value: '#232741'
+        value: '#13293d'
       },
       image: '',
       position: '50% 50%',

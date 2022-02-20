@@ -31,7 +31,7 @@ const AKLoadingButton = (props) => {
         transition: 'all 0.2s',
         ':hover': {
           opacity: '0.5',
-          bgcolor: '#ffa519',
+          bgcolor: '#13293d',
           color: '#ffffff'
         },
         ...sx

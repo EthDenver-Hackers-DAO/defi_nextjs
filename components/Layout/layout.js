@@ -105,7 +105,7 @@ const Layout = ({ children, metaTags }) => {
     title: 'Taurus',
     description: 'Leverage Your Balance with Taurus',
     image: `${URL.PINATA.GATEWAY}/ipfs/QmRNTi2v8UeTosAhbW7D4nKtVKsSCPP1szP2g2czQFZLfG`,
-    url: 'https://tart.cafe',
+    url: 'https://taurusfinance.xyz',
     ...metaTags
   };
 
@@ -142,7 +142,6 @@ const Layout = ({ children, metaTags }) => {
         />
         <meta name="twitter:image" content={meta.image} key="twimage" />
       </Head>
-
       <Header
         walletinfo={walletinfo}
         handleWallet={handleWallet}

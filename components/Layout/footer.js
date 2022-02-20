@@ -7,13 +7,13 @@ const Footer = ({ children }) => {
   return (
     <footer className="">
       <section className="w-full color_main_bg flex justify-center">
-        <div className="tart_inner sm:my-[90px] my-[45px] flex justify-between">
+        <div className="taurus_inner sm:my-[90px] my-[45px] flex justify-between">
           <div className="flex flex-col justify-between">
             <p className="sm:font-extrabold font-bold sm:text-[34px] text-[20px] text-white whitespace-pre-line sm:leading-10 leading-7">
-              {`[Project Description]`}
+              Leverage LP with Taurus
             </p>
             <p className="font-medium sm:text-[18px] text-[15px] text-white whitespace-pre-line mt-[40px]">
-              ©2022 [Project Name]
+              ©2022 Taurus
             </p>
           </div>
 
@@ -43,9 +43,9 @@ const Footer = ({ children }) => {
               </p>
               <a
                 className="font-medium sm:text-[16px] text-[14px] text-white transition-all hover:scale-105"
-                href="mailto:contact@tart.cafe"
+                href="mailto:contact@taurusfinance.xyz"
               >
-                contact@tart.cafe
+                contact@taurusfinance.xyz
               </a>
             </div>
           </div>
